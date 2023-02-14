@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { UserInformationDetails } from "../../types";
 
 const UserInformation = ({
   activeStepNumber,
@@ -7,7 +6,7 @@ const UserInformation = ({
   userInformationDetails,
 }) => {
   const [userInformation, setUserInformation] =
-    useState<UserInformationDetails>({
+    useState({
       firstName: "",
       middleName: "",
       lastName: "",

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { UserAddressDetails } from "../../types";
 
 const AddressDetails = ({
   activeStepNumber,
