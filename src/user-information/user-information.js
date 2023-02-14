@@ -5,21 +5,20 @@ const UserInformation = ({
   activeStepNumberCallback,
   userInformationDetails,
 }) => {
-  const [userInformation, setUserInformation] =
-    useState({
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      mobileNo: "",
-      email: "",
-      birthday: "",
-      age: "",
-      bloodgrp: "",
-      height: "",
-      weight: "",
-      gender: "",
-      martialStatus: "",
-    });
+  const [userInformation, setUserInformation] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    mobileNo: "",
+    email: "",
+    birthday: "",
+    age: "",
+    bloodgrp: "",
+    height: "",
+    weight: "",
+    gender: "",
+    martialStatus: "",
+  });
   const [error, setError] = useState({
     firstName: false,
     middleName: false,
@@ -36,7 +35,6 @@ const UserInformation = ({
   });
 
   const toggleErrorShow = (dataFrom, value) => {
-
     switch (dataFrom) {
       case "firstName":
         value.length === 0
@@ -98,17 +96,39 @@ const UserInformation = ({
           ? setError({ ...error, martialStatus: true })
           : setError({ ...error, martialStatus: false });
         break;
-    	default:
+      default:
         break;
     }
   };
 
   const formValidation = () => {
-		Object.keys(userInformation).forEach((data, index) => {
-			console.log(userInformation[data])
-		})
-    activeStepNumberCallback(1);
-    userInformationDetails(userInformation);
+    let trueValue = 0;
+    Object.keys(userInformation).forEach((userData, userIndex) => {
+      if (userInformation[userData] === "") {
+        Object.keys(error).forEach((errorData, errorIndex) => {
+          if (errorData === userData) {
+            error[errorData] = true;
+            setError({...error});
+          }
+        });
+      } else if (userInformation[userData].length > 0) {
+        Object.keys(error).forEach((errorData, errorIndex) => {
+          if (errorData === userData) {
+            error[errorData] = false;
+            setError({...error});
+          }
+        });
+      }
+    });
+    Object.keys(error).forEach((data, index) => {
+      if (error[data] === true) {
+        trueValue++;
+      }
+    });
+    if (trueValue === 0) {
+      activeStepNumberCallback(1);
+      userInformationDetails(userInformation);
+    }
   };
 
   return (
